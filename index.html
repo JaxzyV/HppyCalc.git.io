@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HppyClac - UMKM HPP Calculation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom CSS for smooth transitions (Fade/Slide) */
+      .fade-in {
+        opacity: 0;
+        animation: fadeIn 1s ease-out forwards;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+      .slide-up {
+        transform: translateY(20px);
+        opacity: 0;
+        animation: slideUp 1s ease-out forwards;
+      }
+      @keyframes slideUp {
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-hppy-white text-hppy-dark">
+    <header class="sticky top-0 z-50 shadow-md bg-hppy-white">
+      <nav
+        class="mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between place-items-center bg-blue-500 shadow-black shadow-lg rounded-sm"
+      >
+        <div class="flex gap-3">
+          <img src="logoCashup.png" alt="Logo" class="w-12 h-12 rounded-full" />
+          <a
+            href="index.html"
+            class="text-3xl text-center text-white font-bold hover:text-hppy-dark transition duration-300 fade-in"
+            style="animation-delay: 0.1s"
+          >
+            HppyClac
+          </a>
+        </div>
+        <div class="space-x-4">
+          <a
+            href="login.html"
+            class="px-6 py-2 bg-white font-bold rounded-2xl hover:bg-opacity-90 transition duration-300 shadow-lg slide-up"
+            style="animation-delay: 0.2s"
+          >
+            Login
+          </a>
+          <a
+            href=""
+            class="px-6 py-2 hover:text-black bg-white font-bold rounded-2xl hover:bg-opacity-90 transition duration-300 shadow-lg slide-up"
+            >Coba Gratis
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section class="text-center py-20 md:py-32 lg:py-40 bg-hppy-white">
+        <h1
+          class="text-5xl md:text-6xl font-extrabold text-hppy-dark mb-4 fade-in"
+          style="animation-delay: 0.4s"
+        >
+          HppyClac
+        </h1>
+        <p
+          class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto slide-up"
+          style="animation-delay: 0.6s"
+        >
+          "HPP Lebih Jelas, Strategi Lebih Cerdas"
+        </p>
+        <div class="space-x-4 slide-up" style="animation-delay: 0.8s"></div>
+      </section>
+
+      <hr class="border-gray-200" />
+
+      <section id="Deskripsi" class="py-16 md:py-24">
+        <div class="max-w-5xl mx-auto">
+          <h2
+            class="text-3xl md:text-4xl font-bold text-hppy-dark mb-6 text-center fade-in"
+            style="animation-delay: 1s"
+          >
+            Apa Itu HppyClac?
+          </h2>
+          <p
+            class="text-lg text-gray-700 leading-relaxed text-center slide-up"
+            style="animation-delay: 1.2s"
+          >
+            <strong>HPPyCalc</strong> adalah platform berbasis web yang
+            memudahkan pengguna menghitung Harga Pokok Penjualan (HPP) secara
+            cepat dan akurat. Dengan tampilan sederhana dan alur penggunaan yang
+            mudah dipahami, <strong>HPPyCalc</strong> menjadi solusi praktis
+            bagi pelajar, mahasiswa, dan pelaku usaha dalam mendapatkan hasil
+            perhitungan yang sistematis dan terpercaya.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-blue-500 text-hppy-dark mt-10 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left"
+        >
+          <div>
+            <h3 class="text-xl font-bold mb-3 text-hppy-blue">Fitur 1</h3>
+            <p class="text-white text-sm">
+              Akurasi & Kecepatan Perhitungan HPP cepat dan tepat sesuai standar
+              akuntansi.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-3">Fitur 2</h3>
+            <p class="text-sm text-white">
+              Mudah Digunakan & Tampilan sederhana dengan proses input yang
+              praktis.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-3">Fitur 3</h3>
+            <ul class="text-sm text-white space-y-1">
+              <li>
+                <a class="text-white transition duration-300"
+                  >Berbasis Web & Akses kapan saja tanpa instalasi, fleksibel di
+                  berbagai perangkat</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-gray-300 text-center">
+          <p class="text-sm text-white font-bold">
+            &copy; <span id="current-year"></span> HppyClac. Cashup
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Set current year in footer
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+    </script>
+  </body>
+</html>
