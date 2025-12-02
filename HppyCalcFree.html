@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator HPP - Harga Pokok Penjualan</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Pastikan ini di atas script.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  </head>
+  <body>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HppyClac Navigasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Tailwind Configuration for HppyClac Theme */
+        /* Ensure no horizontal scrollbar */
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="bg-blue-500 shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    <img
+                        src="logoCashup.png"
+                        class="w-13 h-13 rounded-full border-2 border-hppy-blue"
+                        alt="HppyClac Logo"
+                    />
+                    <h1 class="text-white text-3xl font-extrabold hover:text-hppy-blue transition duration-300">
+                        HPPyCalc
+                    </h1>
+                </div>
+
+                        <div>
+                          <h1 class="text-white text-2xl font-semibold underline"
+                        >
+                        Gratis</h1>
+                           
+                        </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+      <section id="kalkulator" class="active-section">
+        <h2>Kalkulator Harga Pokok Penjualan (HPP)</h2>
+
+        <div class="card instruksi-card">
+          <h3 onclick="toggleInstruksi(this)">
+            Cara Menggunakan 💡 (Klik untuk Buka/Tutup)
+          </h3>
+          <div class="instruksi-content">
+            <ol>
+              <li>Isi Nama Produk untuk identifikasi.</li>
+              <li>
+                Masukkan biaya Bahan Baku dan Biaya Lain-Lain (klik tombol +
+                untuk menambah baris).
+              </li>
+              <li>Isi Total Biaya Tenaga Kerja dan Jumlah Unit Produksi.</li>
+              <li>Klik 'Hitung HPP' untuk melihat hasilnya.</li>
+              <li>Isi Margin Laba (persen) dan klik 'Hitung Harga Jual'.</li>
+            </ol>
+          </div>
+        </div>
+
+        <form id="hpp-form" class="card form-card">
+          <h3>Detail Produk & Unit</h3>
+          <label for="productName">Nama Produk:</label>
+          <input
+            type="text"
+            id="productName"
+            placeholder="Contoh: Kue Cokelat (500g)"
+            required
+          />
+
+          <label for="jumlahUnit">Jumlah Unit Produksi:</label>
+          <input
+            type="number"
+            id="jumlahUnit"
+            min="1"
+            placeholder="Cth: 100"
+            required
+          />
+
+          <h3>1. Biaya Bahan Baku (BB)</h3>
+          <div id="bahanBakuContainer" class="dynamic-input-container"></div>
+          <p class="total-summary">
+            Total Biaya Bahan Baku: <span id="totalBahanBakuDisplay">Rp 0</span>
+          </p>
+
+          <h3>2. Biaya Tenaga Kerja Langsung (BTKL)</h3>
+          <label for="biayaTenagaKerja">Total Biaya Tenaga Kerja:</label>
+          <input
+            type="number"
+            id="biayaTenagaKerja"
+            min="0"
+            placeholder="Rp Total Gaji & Upah"
+            required
+          />
+          <p class="total-summary">
+            Total Biaya Tenaga Kerja:
+            <span id="totalTenagaKerjaDisplay">Rp 0</span>
+          </p>
+
+          <h3>3. Biaya Overhead Pabrik (BOP) / Lain-lain</h3>
+          <div
+            id="biayaLainLainContainer"
+            class="dynamic-input-container"
+          ></div>
+          <p class="total-summary">
+            Total Biaya Lain-Lain: <span id="totalLainLainDisplay">Rp 0</span>
+          </p>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-hitung">Hitung HPP</button>
+            <button type="button" class="btn-reset" onclick="resetForm()">
+              Reset Form
+            </button>
+          </div>
+        </form>
+
+        <div
+          id="hasil-perhitungan"
+          class="card result-card hidden"
+          style="margin-top: 20px"
+        >
+          <h3>Hasil Perhitungan HPP</h3>
+          <div id="ringkasan-angka" class="summary-grid">
+            <div class="summary-item">
+              Total Biaya Produksi:
+              <span id="outputTotalBiaya" class="counter">0</span>
+            </div>
+            <div class="summary-item main-result">
+              HPP per Unit: <span id="outputHPPUnit" class="counter">0</span>
+            </div>
+          </div>
+
+          <div class="harga-jual-section">
+            <h4>Hitung Harga Jual Saran</h4>
+            <label for="marginLaba">Margin Laba yang Diinginkan (%) :</label>
+            <input
+              type="number"
+              id="marginLaba"
+              min="0"
+              max="100"
+              placeholder="Cth: 20"
+              value="20"
+            />
+            <button
+              type="button"
+              class="btn-margin"
+              onclick="hitungHargaJual()"
+            >
+              Hitung Harga Jual
+            </button>
+            <div class="harga-jual-output hidden">
+              Harga Jual Saran per Unit (Margin
+              <span id="marginPersenOutput">0</span>%):
+              <span id="outputHargaJual" class="counter">0</span>
+            </div>
+          </div>
+          <h4 class="text-center">Klik <a class="text-blue-700 font-bold" href="https://jaxzyv.github.io/HppyCalc.git.io/Login.html">Berlangganan</a> Untuk Mendapatkan Fitur Lengkap</h4>
+      <section id="riwayat" class="hidden-section">
+        <h2>Riwayat Perhitungan HPP</h2>
+        <div id="riwayat-list" class="riwayat-list-container">
+          <p id="riwayat-kosong">
+            Belum ada riwayat tersimpan. Silakan hitung HPP terlebih dahulu.
+          </p>
+        </div>
+      </section>
+
+      <section id="tentang" class="hidden-section">
+        <h2>Tentang Aplikasi Kalkulator HPP</h2>
+        <div class="card">
+          <p>
+            Aplikasi ini dirancang untuk membantu UMKM atau individu menghitung
+            Harga Pokok Penjualan (HPP) per unit produk berdasarkan standar
+            akuntansi biaya produksi (Biaya Bahan Baku + Biaya Tenaga Kerja +
+            Biaya Overhead).
+          </p>
+          <p><strong>Fitur Utama:</strong></p>
+          <ul>
+            <li>Perhitungan HPP akurat.</li>
+            <li>Input biaya dinamis (bahan baku & biaya lain-lain).</li>
+            <li>Perhitungan harga jual saran berdasarkan margin laba.</li>
+            <li>Penyimpanan riwayat lokal menggunakan `localStorage`.</li>
+            <li>Visualisasi komposisi biaya dengan grafik (Chart.js).</li>
+            <li>Export hasil perhitungan ke format PDF (jsPDF).</li>
+            <li>Desain responsif dan modern.</li>
+          </ul>
+          <p>Dibuat dengan ❤️ menggunakan HTML, CSS, dan JavaScript.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </body>
+</html>
