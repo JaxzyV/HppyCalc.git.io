@@ -4,9 +4,9 @@
 // Sesuaikan username (email/hp) dan password sesuai kebutuhan Anda
 const users = [
   {
-    username: "admin@profin.com",
-    password: "passwordadmin",
-    redirectTo: "/MenuPage/Profin/MenuPage/index.html", // Halaman yang akan dituju
+    username: "jingga",
+    password: "Ji12345",
+    redirectTo: "https://jaxzyv.github.io/HppyClac/", // Halaman yang akan dituju
   },
   {
     username: "user123",
@@ -66,4 +66,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
 
